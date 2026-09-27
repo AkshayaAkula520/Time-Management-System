@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task - Task Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <h1>Task Manager</h1>
+    <a href="{{ url_for('dashboard') }}" class="logout-btn">Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <section class="add-task-box">
+        <h2>Edit Task</h2>
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="title"
+                value="{{ task['title'] }}"
+                placeholder="Task title"
+                required
+            >
+
+            <textarea
+                name="description"
+                placeholder="Task description"
+            >{{ task['description'] or '' }}</textarea>
+
+            <label>Due Date:</label>
+
+            <input
+                type="date"
+                name="due_date"
+                value="{{ task['due_date'] or '' }}"
+            >
+
+            <label>Status:</label>
+
+            <select name="status">
+                <option value="Pending"
+                    {% if task['status'] == 'Pending' %}selected{% endif %}>
+                    Pending
+                </option>
+
+                <option value="In Progress"
+                    {% if task['status'] == 'In Progress' %}selected{% endif %}>
+                    In Progress
+                </option>
+
+                <option value="Completed"
+                    {% if task['status'] == 'Completed' %}selected{% endif %}>
+                    Completed
+                </option>
+            </select>
+
+            <button type="submit">Update Task</button>
+
+        </form>
+    </section>
+
+</main>
+
+</body>
+</html>
